@@ -1,0 +1,26 @@
+<html>
+<head>
+    <link rel="stylesheet" 
+          href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" /> 
+</head>
+<body>
+    <div id="map" style="width: 1200px; height: 680px"></div>
+ 
+    <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+
+    <script>
+        var map = L.map('map').setView([-76, -75], 2);
+        L.tileLayer('{z}/{x}/{y}.png', {
+            minZoom: 2,
+            maxZoom: 5,
+            attribution: 'ESO/INAF-VST/OmegaCAM',
+            tms: true
+        }).addTo(map);
+		L.marker([-66.86108, -110.03906]).addTo(map);
+		L.marker([0, 0]).addTo(map);
+		map.on('click', function(e) {
+    alert(e.latlng);
+});
+    </script>
+</body>
+</html>
