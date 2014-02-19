@@ -9,15 +9,47 @@
     <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
 
     <script>
-        var map = L.map('map').setView([-76, -75], 2);
-        L.tileLayer('{z}/{x}/{y}.png', {
+	function transformX(X){
+		return (((X*(-1))/64.2)-136.25);
+	}
+	function transformY(Y){
+		return (((Y)/63.9)+122.25);
+	}
+		var plot = L.marker([-12, -8]);
+        
+		var map = L.map('map', {crs: L.CRS.Simple}).setView([-209.75, 82], 3);
+        L.tileLayer('https://raw.github.com/bachrist/Rustanut/master/rustnuts/{z}/{x}/{y}.png', {
             minZoom: 2,
-            maxZoom: 5,
-            attribution: 'ESO/INAF-VST/OmegaCAM',
-            tms: true
+            maxZoom: 4,
+            attribution: '',
+			worldCopyJump: false,
+            tms: true,
+			noWrap:true
         }).addTo(map);
-		L.marker([-66.86108, -110.03906]).addTo(map);
-		L.marker([0, 0]).addTo(map);
+	var friendIcon = L.icon({
+		iconUrl: 'https://raw.github.com/bachrist/Rustanut/master/rustnuts/friend.png',
+		
+		iconAnchor: [12, 41],
+		popupAnchor: [2, -32],
+		shadowSize: [68, 95],
+		shadowAnchor: [22, 94]
+	});
+
+//L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
+		var friend = L.marker([-12, -8]).bindPopup('Bradinator');
+		var friend2 = L.marker([0, 0]).bindPopup('Center');
+		
+		var x = 4659;
+		var y = -2433;
+
+		var user = L.marker([transformX(6191),transformY(-4666)]).addTo(map).bindPopup('Bradinator');
+		var friend = L.marker([transformX(6293),transformY(-3227)], {icon: friendIcon}).addTo(map).bindPopup('Right');
+		var friend2 = L.marker([transformX(4492),transformY(-4380)], {icon: friendIcon}).addTo(map).bindPopup('Right');
+		// map.removeLayer(friend)
+		var friend3 = L.marker([transformX(x),transformY(y)], {icon: friendIcon}).addTo(map);
+		
+		
+		
 		map.on('click', function(e) {
     alert(e.latlng);
 });
